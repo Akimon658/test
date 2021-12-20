@@ -1,1 +1,2 @@
-image: akimon658/go-mecab-neologd:1.17.5-bullseye
+image:
+  file: .gitpod.Dockerfile
