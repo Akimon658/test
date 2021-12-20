@@ -1,5 +1,1 @@
-image:
-  file: .gitpod.Dockerfile
-
-tasks:
-  - init: go get -u all
+image: akimon658/go-mecab-neologd:1.17.5-bullseye
