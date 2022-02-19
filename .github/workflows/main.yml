@@ -21,4 +21,6 @@ jobs:
 
       # Runs a single command using the runners shell
       - name: Run a one-line script
-        run: sudo apt install golang-go
+        run: |
+          sudo apt update
+          sudo apt install fontforge python3-fontforge
