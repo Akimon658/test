@@ -17,16 +17,13 @@ jobs:
     # The type of runner that the job will run on
     runs-on: ubuntu-latest
 
+    services:
+      foo:
+        image: akimon658/ogjson
+
     # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
       - uses: actions/checkout@v2
       
-      - uses: olegtarasov/get-tag@v2.1
-        id: tagName
-        with:
-          tagRegex: "v(.*)"  # Optional. Returns specified group text as tag name. Full tag string is returned if regex is not defined.
-
-      # Runs a single command using the runners shell
-      - name: Run a one-line script
-        run: echo ${{ steps.tagName.outputs.tag }}
+      - run: curl http://foo/?https://example.com
