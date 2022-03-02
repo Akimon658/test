@@ -19,7 +19,7 @@ jobs:
 
     services:
       foo:
-        image: akimon658/ogjson
+        image: akimon658/ogjson:1.0.0
 
     # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
