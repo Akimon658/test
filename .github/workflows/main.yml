@@ -21,7 +21,8 @@ jobs:
     steps:
       - uses: actions/checkout@v2
 
-      - run: echo foo > test.txt
+      - id: latest_version
+        run: gh release list --limit 1 --repo gohugoio/hugo | awk '{print substr($1, index($0, "v")+1)}'
 
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
       - uses: EndBug/add-and-commit@v9
