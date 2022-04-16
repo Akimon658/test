@@ -27,7 +27,7 @@ jobs:
       - id: latest_version
         run: gh release list --limit 1 --repo gohugoio/hugo | awk '{print substr($1, 2)}'
 
-      - run: echo ${{ steps.latest_version.outputs.stdout }}
+      - run: echo ${{ steps.latest_version.outputs.stdout }} > test.txt
 
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
       - uses: EndBug/add-and-commit@v9
