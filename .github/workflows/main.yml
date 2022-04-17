@@ -34,6 +34,7 @@ jobs:
       - name: Create a pull request
         uses: peter-evans/create-pull-request@v4.0.2
         with:
+          author: GitHub Actions <41898282+github-actions[bot]@users.noreply.github.com>
           branch: hugo-upgrade/v${{ steps.hugo_version.outputs.latest }}
           commit-message: Upgrade Hugo to ${{ steps.hugo_version.outputs.latest }}
           delete-branch: true
