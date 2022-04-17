@@ -25,7 +25,7 @@ jobs:
       - uses: actions/checkout@v3
 
       - name: Update Hugo
-        run: sed -r "s/ENV HUGO_VERSION=\S+/ENV HUGO_VERSION=`gh release list --limit 1 --repo gohugoio/hugo | awk '{print substr($1, 2)}'`/" .gitpod.Dockerfile > .gitpod.Dockerfile
+        run: sed -i -r "s/ENV HUGO_VERSION=\S+/ENV HUGO_VERSION=`gh release list --limit 1 --repo gohugoio/hugo | awk '{print substr($1, 2)}'`/" .gitpod.Dockerfile
 
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
       - uses: EndBug/add-and-commit@v9
