@@ -19,13 +19,14 @@ jobs:
 
       - name: Get latest version of Hugo
         id: hugo_version
-        run: echo "::set-output name=latest::$(gh release view --repo gohugoio/hugo --json tagName | jq -r '.tagName')"
+        run: echo "::set-output name=latest::$(gh release view --repo gohugoio/hugo --json tagName | jq -r '.tagName' | awk '{print substr($1, 2)}')"
 
       - name: Update Dockerfile
         run: sed -i -r "s/ENV HUGO_VERSION=\S*/ENV HUGO_VERSION=${{ steps.hugo_version.outputs.latest }}/" .gitpod.Dockerfile
 
       - name: Get release note
         id: release_note
+        # Todo: don't use -r flag and remove quotes
         run: echo "::set-output name=latest::$(gh release view --repo gohugoio/hugo --json body | jq -r '.body' | sed 's/@/@<!-- -->/g')"
 
       - name: Create a pull request
@@ -34,7 +35,7 @@ jobs:
           author: GitHub Actions <41898282+github-actions[bot]@users.noreply.github.com>
           body: <details><summary>Release Note</summary>${{ steps.release_note.outputs.latest }}</details>
           branch: upgrade-hugo/v${{ steps.hugo_version.outputs.latest }}
-          commit-message: Upgrade Hugo to ${{ steps.hugo_version.outputs.latest }}
+          commit-message: Upgrade Hugo to v${{ steps.hugo_version.outputs.latest }}
           delete-branch: true
           labels: dependencies
           title: Upgrade Hugo to ${{ steps.hugo_version.outputs.latest }}
