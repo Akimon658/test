@@ -20,6 +20,6 @@ jobs:
       - uses: olegtarasov/get-tag@v2
         id: get_tag
         with:
-          tagRegex: v.*
+          tagRegex: v(.*)
 
       - run: echo ${{ steps.get_tag.outputs.tag }}
