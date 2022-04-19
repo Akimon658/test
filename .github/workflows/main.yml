@@ -26,13 +26,18 @@ jobs:
 
       - name: Get release note
         id: release_note
-        run: echo "::set-output name=latest::$(gh release view --repo gohugoio/hugo --json body | jq -r '.body' | sed 's/@/@<!-- -->/g')"
+        run: echo "::set-output name=latest::$(gh release view --repo gohugoio/hugo --json body | jq '.body' | sed 's/@/@<!-- -->/g; s/#/#<!-- -->/g' | awk '{print substr($0, 2, length($0)-1)}')"
 
       - name: Create a pull request
         uses: peter-evans/create-pull-request@v4.0.2
         with:
           author: GitHub Actions <41898282+github-actions[bot]@users.noreply.github.com>
-          body: <details><summary>Release Note</summary>${{ steps.release_note.outputs.latest }}</details>
+          body: |
+            <details>
+              <summary>Release Note</summary>
+              
+              ${{ steps.release_note.outputs.latest }}
+            </details>
           branch: upgrade-hugo/v${{ steps.hugo_version.outputs.latest }}
           commit-message: Upgrade Hugo to ${{ steps.hugo_version.outputs.latest }}
           delete-branch: true
